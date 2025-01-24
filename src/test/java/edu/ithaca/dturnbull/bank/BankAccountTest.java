@@ -1,7 +1,10 @@
 package edu.ithaca.dturnbull.bank;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class BankAccountTest {
@@ -24,10 +27,31 @@ class BankAccountTest {
 
     @Test
     void isEmailValidTest(){
-        assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
-        assertFalse( BankAccount.isEmailValid(""));         // empty string
+        // Base Test, meant to pass
+        assertTrue(BankAccount.isEmailValid("good_example22@gmail.com"));
+        // AF contains non a-z character
+        assertFalse(BankAccount.isEmailValid("sneaky_exæmple111@gmail.com"));
+        // AF contains an invalid character (not underscore, letter, number, or period)
+        assertFalse(BankAccount.isEmailValid("this_is#invalid@gmail.com"));
+        // AF an underscore, period, etc. is not followed by a letter or number (repeats)
+        assertFalse(BankAccount.isEmailValid("bad..example_email@gmail.com"));
 
-        
+        // AT valid domain
+        assertTrue(BankAccount.isEmailValid("good_example@gmail.com"));
+        // AF domain has invalid symbol
+        assertFalse(BankAccount.isEmailValid("invalid_domain@gmail#.com"));
+        // AF domain has two periods in a row
+        assertFalse(BankAccount.isEmailValid("mistyped_email_address@gmail..com"));
+        // AF domain is missing TLD/TLD not long enough
+        assertFalse(BankAccount.isEmailValid("missing_tld@gmail"));
+        assertFalse(BankAccount.isEmailValid("tld_too_short@gmail.c"));
+        // AF not a real domain
+        assertFalse(BankAccount.isEmailValid("what_domain_is_that@goobie.com"));
+
+        // AF domain is on left side of @
+        assertFalse(BankAccount.isEmailValid("gmail.com@wrong_way"));
+        // AF has no @
+        assertFalse(BankAccount.isEmailValid("missing_at_sign.com"));
     }
 
     @Test
