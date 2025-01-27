@@ -3,6 +3,7 @@ package edu.ithaca.dturnbull.bank;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,10 @@ class BankAccountTest {
 
         assertEquals(100, bankAccount.getBalance(), 0.001);
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
+
+        BankAccount bankAccount2 = new BankAccount("lukasdeliz@gmail.com", 400);
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.withdraw(0));
+        assertThrows(InsufficientFundsException.class, () -> bankAccount2.withdraw(500));
     }
 
     @Test
