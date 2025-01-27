@@ -1,5 +1,7 @@
 package edu.ithaca.dturnbull.bank;
 
+import java.net.InetAddress;
+
 public class BankAccount {
 
     private String email;
@@ -40,11 +42,25 @@ public class BankAccount {
 
 
     public static boolean isEmailValid(String email){
-        if (email.indexOf('@') == -1){
+        if (email == null || email.isEmpty()) {
             return false;
         }
-        else {
+    
+        // Regex, used this in python a while ago
+        String emailRegex = "^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\\.[a-zA-Z]{2,})+$";
+        if (!email.matches(emailRegex)) {
+            return false;
+        }
+
+        // Extract domain from the email address
+        String domain = email.substring(email.indexOf('@') + 1);
+
+        // Perform DNS lookup to check if the domain exists
+        try {
+            InetAddress.getByName(domain); // Will throw an exception if the domain doesn't exist
             return true;
+        } catch (Exception e) {
+            return false; // Domain does not exist
         }
     }
 }

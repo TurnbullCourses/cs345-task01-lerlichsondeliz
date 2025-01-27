@@ -46,7 +46,8 @@ class BankAccountTest {
         assertFalse(BankAccount.isEmailValid("missing_tld@gmail"));
         assertFalse(BankAccount.isEmailValid("tld_too_short@gmail.c"));
         // AF not a real domain
-        assertFalse(BankAccount.isEmailValid("what_domain_is_that@goobie.com"));
+        // I think goobie might be real... I tried other fake domains and the test passed.
+        assertFalse(BankAccount.isEmailValid("what_domain_is_that@nonexistentdomain12345.com"));
 
         // AF domain is on left side of @
         assertFalse(BankAccount.isEmailValid("gmail.com@wrong_way"));
