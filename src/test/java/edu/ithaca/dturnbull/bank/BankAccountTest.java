@@ -68,5 +68,15 @@ class BankAccountTest {
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
     }
-
+    @Test
+    public void isAmountValidTest() {
+        // valid tests
+        assertTrue(BankAccount.isAmountValid(10.00));
+        assertTrue(BankAccount.isAmountValid(0.01));
+        
+        // invalid tests 
+        assertFalse(BankAccount.isAmountValid(-10.00)); // negative
+        assertFalse(BankAccount.isAmountValid(10.001)); // more than 2 decimals
+        assertFalse(BankAccount.isAmountValid(0)); // 0, I don't know if I want this yet
+    }
 }
