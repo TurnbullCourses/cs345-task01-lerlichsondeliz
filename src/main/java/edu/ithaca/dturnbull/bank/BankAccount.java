@@ -74,4 +74,11 @@ public class BankAccount {
             return false; // Domain does not exist
         }
     }
+    /**
+     * @return true if the amount is positive and has two decimal points or less, and false otherwise
+     */
+
+     public static boolean isAmountValid(double amount){
+        return false;
+     }
 }
