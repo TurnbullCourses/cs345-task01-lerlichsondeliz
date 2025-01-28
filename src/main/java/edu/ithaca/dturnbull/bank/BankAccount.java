@@ -79,6 +79,9 @@ public class BankAccount {
      */
 
      public static boolean isAmountValid(double amount){
-        return false;
+        if (amount <= 0) {
+            return false;
+        }
+        return Math.round(amount * 100) / 100.0 == amount;
      }
 }

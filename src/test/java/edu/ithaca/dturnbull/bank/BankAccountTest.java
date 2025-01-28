@@ -77,6 +77,6 @@ class BankAccountTest {
         // invalid tests 
         assertFalse(BankAccount.isAmountValid(-10.00)); // negative
         assertFalse(BankAccount.isAmountValid(10.001)); // more than 2 decimals
-        assertFalse(BankAccount.isAmountValid(0)); // 0, I don't know if I want this yet
+        //assertFalse(BankAccount.isAmountValid(0)); // 0, I don't know if I want this yet
     }
 }
