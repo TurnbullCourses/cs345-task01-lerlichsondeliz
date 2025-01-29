@@ -91,7 +91,10 @@ public class BankAccount {
      * @throws IllegalArgumentException if the amount is invalid
      */
     public void deposit(double amount) {
-        throw new IllegalArgumentException();
+        if (!isAmountValid(amount)) {
+            throw new IllegalArgumentException("Invalid deposit amount. Must be positive and have at most two decimal places.");
+        }
+        balance += amount;
     }
 
     /**
@@ -103,7 +106,18 @@ public class BankAccount {
      * @throws IllegalArgumentException if the amount is invalid or the recipient is null
      * @throws InsufficientFundsException if this account does not have enough balance
      */
-    public void transfer(double amount, BankAccount recipient) {
-        throw new IllegalArgumentException();
+    public void transfer(double amount, BankAccount recipient) throws InsufficientFundsException{
+        if (!isAmountValid(amount)) {
+            throw new IllegalArgumentException("Invalid transfer amount. Must be positive and have at most two decimal places.");
+        }
+        if (recipient == null) {
+            throw new IllegalArgumentException("Recipient account cannot be null.");
+        }
+        if (amount > balance) {
+            throw new InsufficientFundsException("Not enough funds to complete the transfer.");
+        }
+    
+        this.withdraw(amount);
+        recipient.deposit(amount);
     }
 }
