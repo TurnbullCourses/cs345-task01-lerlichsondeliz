@@ -93,4 +93,17 @@ public class BankAccount {
     public void deposit(double amount) {
         throw new IllegalArgumentException();
     }
+
+    /**
+     * Transfers a specified amount from this account to another account.
+     *
+     * @param amount the amount to transfer
+     * @param recipient the account to receive the transfer
+     * @post decreases this account's balance by the amount and increases the recipient's balance by the same amount
+     * @throws IllegalArgumentException if the amount is invalid or the recipient is null
+     * @throws InsufficientFundsException if this account does not have enough balance
+     */
+    public void transfer(double amount, BankAccount recipient) {
+        throw new IllegalArgumentException();
+    }
 }
