@@ -11,7 +11,7 @@ public class BankAccount {
      * @throws IllegalArgumentException if email is invalid
      */
     public BankAccount(String email, double startingBalance){
-        if (isEmailValid(email)){
+        if (isEmailValid(email) && isAmountValid(startingBalance)){
             this.email = email;
             this.balance = startingBalance;
         }
@@ -34,15 +34,13 @@ public class BankAccount {
      * @throws InsufficientFundsException if amount > balance 
      */
     public void withdraw (double amount) throws InsufficientFundsException{
-        if (amount <= 0){
-            throw new IllegalArgumentException("Cannot withdraw negative or zero amount");
+        if (!isAmountValid(amount)) {
+            throw new IllegalArgumentException("Invalid amount. Must be positive and have at most two decimal places.");
         }
-        if (amount > balance){
+        if (amount > balance) {
             throw new InsufficientFundsException("Not enough money");
         }
-        else{
-            balance -= amount;
-        }
+        balance -= amount;
         // if (amount <= balance){
         //     balance -= amount;
         // }
@@ -83,5 +81,16 @@ public class BankAccount {
             return false;
         }
         return Math.round(amount * 100) / 100.0 == amount;
-     }
+    }
+
+    /**
+     * Deposits the specified amount into the account.
+     *
+     * @param amount the amount to deposit
+     * @post increases the balance by the amount
+     * @throws IllegalArgumentException if the amount is invalid
+     */
+    public void deposit(double amount) {
+        throw new IllegalArgumentException();
+    }
 }
