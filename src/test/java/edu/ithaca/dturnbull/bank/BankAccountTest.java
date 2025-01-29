@@ -100,4 +100,26 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(-10)); // Negative deposit
         assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(10.001)); // More than two decimal places
     }
+
+    @Test
+    void transferTest() throws InsufficientFundsException {
+        BankAccount sender = new BankAccount("lukasdeliz@gmail.com", 16.00);
+        BankAccount recipient = new BankAccount("lerlichsondeliz@ithaca.edu", 4.00);
+
+        // valid transfers
+        sender.transfer(8.00, recipient);
+        assertEquals(8.00, sender.getBalance(), 0.001);
+        assertEquals(12.00, recipient.getBalance(), 0.001);
+
+        sender.transfer(4.00, recipient);
+        assertEquals(4.00, sender.getBalance(), 0.001);
+        assertEquals(16.00, recipient.getBalance(), 0.001);
+
+        // invalid transfers
+        assertThrows(IllegalArgumentException.class, () -> sender.transfer(0, recipient));  // Amount is 0
+        assertThrows(IllegalArgumentException.class, () -> sender.transfer(-8, recipient)); // Negative amount
+        assertThrows(IllegalArgumentException.class, () -> sender.transfer(8.164, recipient)); // More than two decimals
+        assertThrows(InsufficientFundsException.class, () -> sender.transfer(20, recipient)); // Not enough balance
+        assertThrows(IllegalArgumentException.class, () -> sender.transfer(4, null)); // Null recipient
+    }
 }
