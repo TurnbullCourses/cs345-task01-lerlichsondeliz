@@ -83,4 +83,21 @@ class BankAccountTest {
         assertFalse(BankAccount.isAmountValid(10.001)); // more than 2 decimals
         //assertFalse(BankAccount.isAmountValid(0)); // 0, I don't know if I want this yet
     }
+
+    @Test
+    void depositTest() {
+        BankAccount bankAccount = new BankAccount("lukas@gmail.com", 100.00);
+
+        // valid deposits
+        bankAccount.deposit(50.00);
+        assertEquals(150.00, bankAccount.getBalance(), 0.001);
+
+        bankAccount.deposit(0.01);
+        assertEquals(150.01, bankAccount.getBalance(), 0.001);
+
+        // invalid deposits
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(0));    // Deposit 0
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(-10)); // Negative deposit
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(10.001)); // More than two decimal places
+    }
 }
